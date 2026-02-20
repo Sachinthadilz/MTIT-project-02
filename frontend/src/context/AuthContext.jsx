@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import api from '../api/axios';
+import authService from '../services/authService';
 import { toast } from 'react-toastify';
 
 const AuthContext = createContext();
@@ -14,8 +14,8 @@ export const AuthProvider = ({ children }) => {
         const verifyUser = async () => {
             if (token) {
                 try {
-                    const res = await api.get('/auth/me');
-                    setUser(res.data);
+                    const userData = await authService.verifyToken();
+                    setUser(userData);
                 } catch (error) {
                     console.error("Token verification failed:", error);
                     logout(); // Token is invalid/expired
@@ -29,12 +29,12 @@ export const AuthProvider = ({ children }) => {
     const register = async (userData) => {
         setLoading(true);
         try {
-            const res = await api.post('/auth/register', userData);
-            const { token, ...userDataWithoutToken } = res.data;
+            const data = await authService.register(userData);
+            const { token: receivedToken, ...userDataWithoutToken } = data;
 
-            setToken(token);
+            setToken(receivedToken);
             setUser(userDataWithoutToken);
-            localStorage.setItem('token', token);
+            localStorage.setItem('token', receivedToken);
             toast.success("Registration successful!");
             return true;
         } catch (error) {
@@ -49,12 +49,12 @@ export const AuthProvider = ({ children }) => {
     const login = async (credentials) => {
         setLoading(true);
         try {
-            const res = await api.post('/auth/login', credentials);
-            const { token, ...userDataWithoutToken } = res.data;
+            const data = await authService.login(credentials);
+            const { token: receivedToken, ...userDataWithoutToken } = data;
 
-            setToken(token);
+            setToken(receivedToken);
             setUser(userDataWithoutToken);
-            localStorage.setItem('token', token);
+            localStorage.setItem('token', receivedToken);
             toast.success("Login successful!");
             return true;
         } catch (error) {
