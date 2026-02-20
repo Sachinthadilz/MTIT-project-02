@@ -10,6 +10,7 @@ import Header from './components/layout/Header';
 import ProtectedRoute from './utils/ProtectedRoute';
 
 // Pages
+import Landing from './pages/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Home from './pages/Home';
@@ -24,12 +25,13 @@ function App() {
           <main className="flex-grow">
             <Routes>
               {/* Public Routes */}
+              <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
 
               {/* Protected Routes */}
               <Route element={<ProtectedRoute />}>
-                <Route path="/" element={<Home />} />
+                <Route path="/dashboard" element={<Home />} />
                 {/* Add future protected routes like /notes here */}
               </Route>
 

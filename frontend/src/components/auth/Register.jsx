@@ -21,7 +21,7 @@ const Register = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (token) navigate('/');
+        if (token) navigate('/dashboard');
     }, [token, navigate]);
 
     const validate = () => {
@@ -67,7 +67,7 @@ const Register = () => {
         setIsSubmitting(false);
 
         if (success) {
-            navigate('/');
+            navigate('/dashboard');
         }
     };
 
