@@ -23,8 +23,11 @@ app.get("/", (req, res) => {
 });
 
 
+
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/notes", require("./routes/noteRoutes"));
+
 
 const { errorHandler } = require("./middlewares/errorMiddleware");
 app.use(errorHandler);
