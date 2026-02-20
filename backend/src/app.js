@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const helmet = require("helmet");
 const connectDB = require("./config/db");
 
 dotenv.config();
@@ -11,9 +12,10 @@ const app = express();
 connectDB();
 
 // Middlewares
+app.use(helmet());
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "10kb" }));
+app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
 // Base route
 app.get("/", (req, res) => {

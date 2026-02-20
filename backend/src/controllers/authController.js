@@ -18,7 +18,8 @@ const registerUser = async (req, res) => {
 
     if (userExists) {
         res.status(400);
-        throw new Error("User already exists");
+        // Generic error to prevent email enumeration
+        throw new Error("Invalid registration data");
     }
 
     // Create user
@@ -73,7 +74,7 @@ const getMe = async (req, res) => {
 // Generate JWT
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: "30d",
+        expiresIn: process.env.JWT_EXPIRES_IN || "15m",
     });
 };
 
