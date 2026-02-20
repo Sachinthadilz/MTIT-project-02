@@ -73,7 +73,7 @@ const EditModal = ({ isOpen, onClose, note, onUpdate }) => {
                 {/* Modal panel */}
                 <div
                     onClick={handleContentClick}
-                    className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full"
+                    className="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full"
                 >
                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-gray-100">
                         <div className="flex justify-between items-center mb-4">
